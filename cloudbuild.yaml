@@ -7,8 +7,8 @@ steps:
 - name: node
   entrypoint: npm
   args: ['test']
-# Building Docker Image
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'asia-southeast2-docker.pkg.dev/valdyramadhan/web-profile-repo/web-profile-image', '.' ]
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'asia-southeast2-docker.pkg.dev/valdyramadhan/web-profile-repo/web-profile-image']
+# Deploy to AppEngine
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args: ['-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy']
+timeout: '1600s'
